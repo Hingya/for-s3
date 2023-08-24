@@ -13,9 +13,10 @@ jobs:
       - name: connect to s3
         run: |
           aws s3 cp .github/workflows/check.txt s3://github-s3-pratice/test1/
+          aws configure set region $AWS_REGION
 
         env:
           AWS_ACCESS_KEY_ID: $ {{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: $ {{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${AWS_REGION}
+          AWS_DEFAULT_REGION: $ {{ secrets.AWS_REGION }} 
           AWS_SESSION_TOKEN: $ {{ secrets.AWS_SESSION_TOKEN }}
