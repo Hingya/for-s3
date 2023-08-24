@@ -1,4 +1,4 @@
-name: Connect_to_s3
+name: Connect_to_s4
 
 on:
   push:
