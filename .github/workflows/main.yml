@@ -1,4 +1,4 @@
-name: Connect to S3
+name: Connect s3
 
 on:
   push:
