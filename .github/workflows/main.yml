@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-      - name: connect to s3
+      - name: connect__s4
         run: |
           aws s3 cp .github/workflows/a.txt s3://github-s3-pratice/test1/
           aws configure set region $AWS_REGION
