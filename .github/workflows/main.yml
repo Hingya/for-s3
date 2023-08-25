@@ -1,23 +1,26 @@
-name: Connect_s4
-
+name: combine
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@master
-      - name: connect_s4
+      - name: Checkout Repository
+        uses: actions/checkout@v2 # Use a specific version of the action
+
+      - name: Upload to S3
         run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set aws_default_region ${{ secrets.AWS_DEFAULT_REGION }}
+          aws configure set aws_session_token ${{ secrets.AWS_SESSION_TOKEN }}
+          
           aws s3 cp .github/workflows/a.txt s3://github-s3-pratice/test1/
-          aws configure set region $AWS_REGION
-
         env:
-          AWS_ACCESS_KEY_ID: ASIAQGNE3WZCXMG3GSHI
-          AWS_SECRET_ACCESS_KEY: IMx8O4dfZy+J7l5VRd4NB7hRAdN45/5Gwcm09nOM
-          AWS_DEFAULT_REGION: us-east-1
-          AWS_SESSION_TOKEN: FwoGZXIvYXdzEIj//////////wEaDJVp1LYN/HjCgYWBiCLQAcWoxPhJq+OtRXehXBwXYIHzyNRu4K0VQLmdddDdv5QnelRp/WoXr6NQIN2st9dKAghMIf7RVfsxNPl1hAt2g/Xtu3XFkXaRGKGkDHdigkj4VvKM+jLK4kj8lYHUVezK92Hx6Ql1MjRU8U6PTSI54LX6M/v+UEWRq9IhA01pRaa6DbBPyJd2KFFRVGTDlhCc0wJ5aLyAWT+3vuVz4dA2S3nda1Wp5V95Jf+1VXcpn0oBB3V6gt9D0IRGAd2zZoQwn5ItwreHQIJgB0moTAhmS4oospOhpwYyLfiTZcTQutAOP8VbBBlA2XTPxdOaMA1o86TIoIHHqWdAaovAU1mev1kkWnJ3xw==
-
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
