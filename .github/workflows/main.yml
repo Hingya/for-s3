@@ -1,4 +1,4 @@
-name: Connect_s3
+name: Connect_s4
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-      - name: connect_s3
+      - name: connect_s4
         run: |
           aws s3 cp .github/workflows/a.txt s3://github-s3-pratice/test1/
           aws configure set region $AWS_REGION
